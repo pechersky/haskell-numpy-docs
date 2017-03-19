@@ -1,0 +1,14 @@
+flags:
+  hmatrix:
+    openblas: true
+extra-package-dbs: []
+packages:
+- '.'
+extra-deps:
+- hTensor-0.9.1
+- hmatrix-0.18.0.0
+resolver: lts-8.5
+extra-lib-dirs:
+- C:\Users\Yakov\Downloads\OpenBLAS-v0.2.19-Win64-int32\bin
+extra-include-dirs:  
+- C:\Users\Yakov\Downloads\OpenBLAS-v0.2.19-Win64-int32\include
