@@ -583,3 +583,101 @@ import Numeric.LinearAlgebra
 --  , 8, 10 ]
 -- >>> (fromList . fmap (atIndex a)) (zip b1 b2) -- this will give you the numpy result, the zipped indexing of a matrix to give a vector
 -- [4,10]
+
+-- | 1344-1378
+-- >>> let a = fromLists [[1.0, 2.0],[3.0,4.0]] :: Matrix R
+-- >>> disp 2 a
+-- 2x2
+-- 1  2
+-- 3  4
+--
+-- >>> tr a
+-- (2><2)
+--  [ 1.0, 3.0
+--  , 2.0, 4.0 ]
+--
+-- >>> disp 2 (inv a)
+-- 2x2
+-- -2.00   1.00
+--  1.50  -0.50
+--
+-- >>> let u = ident 2 :: Matrix R
+-- >>> u
+-- (2><2)
+--  [ 1.0, 0.0
+--  , 0.0, 1.0 ]
+-- >>> let j = fromLists [[0.0,-1.0],[1.0,0.0]] :: Matrix R
+--
+-- >>> j <> j
+-- (2><2)
+--  [ -1.0,  0.0
+--  ,  0.0, -1.0 ]
+--
+-- >>> sumElements (takeDiag u)
+-- 2.0
+--
+-- >>> let y = vector [5,7]
+-- >>> disp 2 (asColumn (a <\> y))
+-- 2x1
+-- -3.00
+--  4.00
+--
+-- >>> eig j
+-- ([0.0 :+ 1.0,0.0 :+ (-1.0)],(2><2)
+--  [    0.7071067811865475 :+ 0.0, 0.7071067811865475 :+ (-0.0)
+--  , 0.0 :+ (-0.7071067811865475),    0.0 :+ 0.7071067811865475 ])
+
+-- | 1401-1415
+-- >>> let a = 30 |> [0..] :: Vector Z
+-- >>> toBlocksEvery 5 3 (reshape 3 a) -- emulate depth with lists
+-- [[(5><3)
+--  [  0,  1,  2
+--  ,  3,  4,  5
+--  ,  6,  7,  8
+--  ,  9, 10, 11
+--  , 12, 13, 14 ]],[(5><3)
+--  [ 15, 16, 17
+--  , 18, 19, 20
+--  , 21, 22, 23
+--  , 24, 25, 26
+--  , 27, 28, 29 ]]]
+
+-- | 1427-1431
+-- >>> let x = fromList [0,2..10-2] :: Vector Z
+-- >>> x
+-- [0,2,4,6,8]
+-- >>> let y = 5 |> [0..] :: Vector Z
+-- >>> y
+-- [0,1,2,3,4]
+-- >>> let m = fromRows [x,y]
+-- >>> m
+-- (2><5)
+--  [ 0, 2, 4, 6, 8
+--  , 0, 1, 2, 3, 4 ]
+-- >>> let xy = vjoin [x,y]
+-- >>> xy
+-- [0,2,4,6,8,0,1,2,3,4]
+
+-- | 1452-1463
+-- >>> let (mu, sigma) = (2, 0.5)
+-- >>> (mu, sigma)
+-- (2,0.5)
+-- >>> import Numeric.LinearAlgebra.HMatrix (Seed, RandDist(..), gaussianSample, rand)
+-- >>> let rand' seed mu sigma c = mu + sigma * (randomVector seed Gaussian c)
+-- >>> let v = rand' 1 mu sigma 10000
+-- >>> :{
+-- normedhist :: Vector R -> Int -> Vector R
+-- normedhist vec numbins = accum bins (+) (fmap go (toList vec))
+--                          where
+--                            bins = konst 0 numbins
+--                            (lo, hi) = (minElement vec, maxElement vec)
+--                            delt = (hi-lo) / fromIntegral numbins
+--                            valscale val = min (numbins-1) (floor ((val-lo) / delt))
+--                            go val = (valscale val, 1 / fromIntegral (size vec))
+-- :}
+--
+-- >>> let hist = normedhist v 50
+-- >>> disp 2 (scalar (sumElements hist))
+-- 1x1
+-- 1.00
+-- >>> let bins = linspace 50 (minElement v, maxElement v)
