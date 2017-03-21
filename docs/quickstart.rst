@@ -4,8 +4,10 @@ Quickstart
 Refer to the `numpy documentation <https://docs.scipy.org/doc/numpy/user/quickstart.html>`_
 for the associated context regarding the examples.
 
+
 An example
 ----------
+
 .. compare-tabs::
 
    python  numpy   ../../../numpy/doc/source/user/quickstart.rst 78-100
@@ -14,6 +16,7 @@ An example
 
 Array creation
 --------------
+
 .. compare-tabs::
 
    python  numpy   ../../../numpy/doc/source/user/quickstart.rst 114-122
