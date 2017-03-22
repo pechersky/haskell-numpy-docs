@@ -1,5 +1,4 @@
-haskell-numpy-docs
-------------------
+# haskell-numpy-docs
 
 This repo provides the docs with which one can compare how use Haskell (and
 associated libraries) in the same way one would use the Python numerical library
@@ -8,11 +7,10 @@ associated libraries) in the same way one would use the Python numerical library
 [numpy]: http://www.numpy.org
 [datahaskell]: http://www.datahaskell.org/
 
-Structure
-=========
+## Structure
 
-The `numpy` docs are provided as a submodule, pointing to the [numpy repo][numpy git].
-Specifically, we care about the `docs` there.
+The `numpy` docs are provided as a subtreej, pointing to the [numpy repo][numpy git].
+Specifically, we care about the `numpy-docs` there.
 
 The examples are in the `src` directory, grouped by the docs page that they are
 associated with. Each docs page can have a different library provide examples.
@@ -33,8 +31,7 @@ language of the example. For a good starting point, check out
 [sphinx docs]: http://www.sphinx-doc.org/en/stable/
 [sphinx tabs git]: https://github.com/djungelorm/sphinx-tabs
 
-Developing
-==========
+## Developing
 
 Select the library you want to test. Add it to the [haskell-numpy-docs.cabal](haskell-numpy-docs.cabal)
 file. Run `stack solver` to prepare the dependencies. Run `stack build` to
@@ -44,8 +41,7 @@ There are some special things you might need to do to develop on Windows
 machines. Specifically, you need to provide a BLAS implementation for HMatrix to
 work. Check out `stack.yaml` for an example.
 
-Testing
-=======
+## Testing
 
 You can write the Haskell examples to be valid Haskell. This is verifiable using
 the [doctest][doctest git] library. To check an examples file, run a command
@@ -53,21 +49,76 @@ like `stack exec doctest src/quickstart/hmatrix.hs`, for example.
 
 [doctest git]: https://github.com/sol/doctest
 
-Building documentation
-======================
+## Building documentation
 
 Make sure the proper Python dependencies are installed using `pip install -r
 requirements.txt`. To build the documentation, `cd` to the `docs` directory. Run
 `make html`.
 
-Contributing
-============
+For directions about how to push the docs, take a look at [how to push
+docs](#pushing-docs).
+
+## Contributing
 
 File a PR with a new library, or new examples, or more idiomatic Haskell code.
 File an issue for more in-depth discussion. Visit the [DataHaskell][datahaskell gitter]
 channel and talk!
 
 [datahaskell gitter]: https://gitter.im/dataHaskell/Lobby
+
+## Advanced git stuff
+
+### Pushing docs
+
+In a properly set up repo, following a `make html`, run:
+```
+cd _build/html
+git commit -a -m 'new examples here'
+git push origin gh-pages
+```
+
+This is based on a way to provide sphinx documentations to GitHub pages, given
+at https://gist.github.com/brantfaircloth/791759.
+
+The simple explanation of how to set this up for you is that in the `_build/html`
+directory, you need to
+```
+cd docs
+git clone git@github.com:pechersky/haskell-numpy-docs.git _build/html
+cd _build/html
+git checkout master
+rm .git/index
+git clean -fdx
+git checkout gh-pages
+```
+This is because the first part of the gist was already done. Be careful to not
+push the docs to the `master` branch!
+
+### Setting up the numpy subtree
+
+Based on this [git-subdirectory gist][git subtree gist]. The commands to set up
+the subtree were
+```
+git remote add -f numpy-upstream git@github.com:numpy/numpy
+git remote update
+git checkout -b upstream/numpydocs numpy-upstream/master
+git subtree split -q --squash --prefix=doc --annotate="[numpydocs] " --rejoin -b merging/numpydocs
+git checkout master
+git subtree add --prefix=numpy-docs --squash merging/numpydocs
+```
+
+To update the numpy docs themselves, run
+```
+git checkout upstream/numpydocs
+git pull numpy-upstream/master
+git subtree split -q --prefix=doc --annotate="[numpydocs] " --rejoin -b merging/numpydocs
+git checkout master
+git subtree merge -q --prefix=numpy-docs --squash merging/numpydocs
+```
+
+The `git subtree split` commands take a long time.
+
+[git subtree gist]: https://gist.github.com/tswaters/542ba147a07904b1f3f5
 
 ---
 
