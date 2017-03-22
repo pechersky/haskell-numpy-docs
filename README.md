@@ -7,6 +7,10 @@ associated libraries) in the same way one would use the Python numerical library
 [numpy]: http://www.numpy.org
 [datahaskell]: http://www.datahaskell.org/
 
+## The actual docs
+
+https://pechersky.github.io/haskell-numpy-docs/
+
 ## Structure
 
 The `numpy` docs are provided as a subtree, pointing to the [numpy repo][numpy git].
