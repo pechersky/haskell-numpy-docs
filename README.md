@@ -9,7 +9,7 @@ associated libraries) in the same way one would use the Python numerical library
 
 ## Structure
 
-The `numpy` docs are provided as a subtreej, pointing to the [numpy repo][numpy git].
+The `numpy` docs are provided as a subtree, pointing to the [numpy repo][numpy git].
 Specifically, we care about the `numpy-docs` there.
 
 The examples are in the `src` directory, grouped by the docs page that they are
@@ -97,7 +97,7 @@ push the docs to the `master` branch!
 ### Setting up the numpy subtree
 
 Based on this [git-subdirectory gist][git subtree gist]. The commands to set up
-the subtree were
+the subtree were, in the top directory of the repo
 ```
 git remote add -f numpy-upstream git@github.com:numpy/numpy
 git remote update
@@ -107,7 +107,7 @@ git checkout master
 git subtree add --prefix=numpy-docs --squash merging/numpydocs
 ```
 
-To update the numpy docs themselves, run
+To update the numpy docs themselves, in the top directory of the repo, run
 ```
 git checkout upstream/numpydocs
 git pull numpy-upstream/master
