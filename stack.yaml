@@ -10,5 +10,5 @@ extra-deps:
 resolver: lts-8.5
 extra-lib-dirs:
 - C:\Users\Yakov\Downloads\OpenBLAS-v0.2.19-Win64-int32\bin
-extra-include-dirs:  
+extra-include-dirs:
 - C:\Users\Yakov\Downloads\OpenBLAS-v0.2.19-Win64-int32\include
