@@ -9,7 +9,7 @@ An example
 .. compare-tabs::
 
    python  numpy   ../numpy-docs/source/user/quickstart.rst 78-100
-   haskell hmatrix ../src/quickstart/hmatrix.hs        6-7,10-17,19,22-34
+   haskell hmatrix ../src/quickstart/hmatrix.hs             6-7,10-17,19,22-34
 
 
 Array creation
