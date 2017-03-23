@@ -10,3 +10,4 @@ Welcome to haskell-numpy-docs's documentation!
    :maxdepth: 3
 
    quickstart
+   routines

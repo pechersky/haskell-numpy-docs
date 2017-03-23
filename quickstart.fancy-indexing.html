@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Fancy indexing and index tricks &#8212; haskell-numpy-docs  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/segment.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/menu.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/tabs.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Algebra" href="quickstart.linear-algebra.html" />
+    <link rel="prev" title="Shape Manipulation" href="quickstart.shape-manipulation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">haskell-numpy-docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.basics.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.shape-manipulation.html">Shape Manipulation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Fancy indexing and index tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-with-arrays-of-indices">Indexing with Arrays of Indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indexing-with-boolean-arrays">Indexing with Boolean Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.linear-algebra.html">Linear Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.tricks.html">Tricks and Tips</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="quickstart.html">Quickstart</a><ul>
+      <li>Previous: <a href="quickstart.shape-manipulation.html" title="previous chapter">Shape Manipulation</a></li>
+      <li>Next: <a href="quickstart.linear-algebra.html" title="next chapter">Linear Algebra</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="fancy-indexing-and-index-tricks">
+<span id="quickstart-fancy-indexing"></span><h1>Fancy indexing and index tricks<a class="headerlink" href="#fancy-indexing-and-index-tricks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="indexing-with-arrays-of-indices">
+<h2>Indexing with Arrays of Indices<a class="headerlink" href="#indexing-with-arrays-of-indices" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-0 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-1 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>                       <span class="c1"># the first 12 square numbers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span> <span class="p">]</span> <span class="p">)</span>              <span class="c1"># an array of indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>                                       <span class="c1"># the elements of a at the positions i</span>
+<span class="go">array([ 1,  1,  9, 64, 25])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span> <span class="p">]</span> <span class="p">]</span> <span class="p">)</span>      <span class="c1"># a bidimensional array of indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>                                       <span class="c1"># the same shape as j</span>
+<span class="go">array([[ 9, 16],</span>
+<span class="go">       [81, 49]])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-1 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="n">build</span> <span class="mi">12</span> <span class="p">(</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">i</span> <span class="ow">=</span> <span class="n">fromList</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">flatten</span> <span class="p">((</span><span class="n">asRow</span> <span class="n">a</span><span class="p">)</span> <span class="o">??</span> <span class="p">(</span><span class="kt">All</span><span class="p">,</span> <span class="kt">Pos</span> <span class="n">i</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">j</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">9</span><span class="p">,</span><span class="mi">7</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">remap</span> <span class="p">(</span><span class="n">asRow</span> <span class="p">(</span><span class="n">scalar</span> <span class="mi">0</span><span class="p">))</span> <span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="p">((</span><span class="n">fromRows</span> <span class="o">.</span> <span class="n">replicate</span> <span class="p">(</span><span class="n">rows</span> <span class="n">j</span><span class="p">))</span> <span class="n">a</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span>
+ <span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">49</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-2 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-3 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-2 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">palette</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>                <span class="c1"># black</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>              <span class="c1"># red</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>              <span class="c1"># green</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">],</span>              <span class="c1"># blue</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>       <span class="c1"># white</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],</span>           <span class="c1"># each value corresponds to a color in the palette</span>
+<span class="gp">... </span>                    <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span> <span class="p">]</span>  <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">palette</span><span class="p">[</span><span class="n">image</span><span class="p">]</span>                            <span class="c1"># the (2,4,3) color image</span>
+<span class="go">array([[[  0,   0,   0],</span>
+<span class="go">        [255,   0,   0],</span>
+<span class="go">        [  0, 255,   0],</span>
+<span class="go">        [  0,   0,   0]],</span>
+<span class="go">       [[  0,   0,   0],</span>
+<span class="go">        [  0,   0, 255],</span>
+<span class="go">        [255, 255, 255],</span>
+<span class="go">        [  0,   0,   0]]])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-3 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">palette</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">],[</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">image</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fmap</span> <span class="p">(</span><span class="nf">\</span><span class="n">img</span> <span class="ow">-&gt;</span> <span class="n">palette</span> <span class="o">??</span> <span class="p">(</span><span class="kt">Pos</span> <span class="n">img</span><span class="p">,</span> <span class="kt">All</span><span class="p">))</span> <span class="p">(</span><span class="n">toRows</span> <span class="n">image</span><span class="p">)</span> <span class="c1">-- almost 3D, [Matrix Z] instead</span>
+<span class="p">[(</span><span class="mi">4</span><span class="o">&gt;&lt;</span><span class="mi">3</span><span class="p">)</span>
+ <span class="p">[</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+ <span class="p">,</span> <span class="mi">255</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+ <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span>
+ <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],(</span><span class="mi">4</span><span class="o">&gt;&lt;</span><span class="mi">3</span><span class="p">)</span>
+ <span class="p">[</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span>
+ <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span>
+ <span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span>
+ <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span> <span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-4 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-5 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-4 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[ 0,  1,  2,  3],</span>
+<span class="go">       [ 4,  5,  6,  7],</span>
+<span class="go">       [ 8,  9, 10, 11]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>                        <span class="c1"># indices for the first dim of a</span>
+<span class="gp">... </span>                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>                        <span class="c1"># indices for the second dim</span>
+<span class="gp">... </span>                <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>                                     <span class="c1"># i and j must have equal shape</span>
+<span class="go">array([[ 2,  5],</span>
+<span class="go">       [ 7, 11]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">array([[ 2,  6],</span>
+<span class="go">       [ 6, 10]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span>                                     <span class="c1"># i.e., a[ : , j]</span>
+<span class="go">array([[[ 2,  1],</span>
+<span class="go">        [ 3,  3]],</span>
+<span class="go">       [[ 6,  5],</span>
+<span class="go">        [ 7,  7]],</span>
+<span class="go">       [[10,  9],</span>
+<span class="go">        [11, 11]]])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-5 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="p">[</span><span class="mi">0</span><span class="ow">::</span><span class="kt">Z</span> <span class="o">..</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">i</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">j</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">remap</span> <span class="n">i</span> <span class="n">j</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">5</span>
+ <span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">remap</span> <span class="n">i</span> <span class="p">(</span><span class="n">asColumn</span> <span class="p">(</span><span class="n">scalar</span> <span class="mi">2</span><span class="p">))</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">6</span>
+ <span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fmap</span> <span class="p">(</span><span class="nf">\</span><span class="n">r</span> <span class="ow">-&gt;</span> <span class="n">remap</span> <span class="p">(</span><span class="n">asRow</span> <span class="p">(</span><span class="n">scalar</span> <span class="n">r</span><span class="p">))</span> <span class="n">j</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">toList</span> <span class="p">((</span><span class="n">rows</span> <span class="n">a</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]))</span> <span class="c1">-- emulating 3D</span>
+<span class="p">[(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span>
+ <span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="p">],(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span>
+ <span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span> <span class="p">],(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">9</span>
+ <span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span> <span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-6 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-7 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-6 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>                 <span class="c1"># time scale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>      <span class="c1"># 4 time-dependent series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span>
+<span class="go">array([  20.  ,   51.25,   82.5 ,  113.75,  145.  ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">array([[ 0.        ,  0.84147098,  0.90929743,  0.14112001],</span>
+<span class="go">       [-0.7568025 , -0.95892427, -0.2794155 ,  0.6569866 ],</span>
+<span class="go">       [ 0.98935825,  0.41211849, -0.54402111, -0.99999021],</span>
+<span class="go">       [-0.53657292,  0.42016704,  0.99060736,  0.65028784],</span>
+<span class="go">       [-0.28790332, -0.96139749, -0.75098725,  0.14987721]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ind</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                   <span class="c1"># index of the maxima for each series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ind</span>
+<span class="go">array([2, 0, 3, 1])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time_max</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span> <span class="n">ind</span><span class="p">]</span>                       <span class="c1"># times corresponding to the maxima</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_max</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="c1"># =&gt; data[ind[0],0], data[ind[1],1]...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time_max</span>
+<span class="go">array([  82.5 ,   20.  ,  113.75,   51.25])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_max</span>
+<span class="go">array([ 0.98935825,  0.84147098,  0.99060736,  0.6569866 ])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data_max</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-7 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">time</span> <span class="ow">=</span> <span class="n">linspace</span> <span class="mi">5</span> <span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">145.0</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">R</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">ydata</span> <span class="ow">=</span> <span class="n">cmap</span> <span class="n">sin</span> <span class="p">((</span><span class="mi">5</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">])</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">R</span> <span class="c1">-- data is a protected word</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span>
+<span class="p">[</span><span class="mf">20.0</span><span class="p">,</span><span class="mf">51.25</span><span class="p">,</span><span class="mf">82.5</span><span class="p">,</span><span class="mf">113.75</span><span class="p">,</span><span class="mf">145.0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ydata</span>
+<span class="p">(</span><span class="mi">5</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span>
+ <span class="p">[</span>                 <span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.8414709848078965</span><span class="p">,</span>   <span class="mf">0.9092974268256817</span><span class="p">,</span>  <span class="mf">0.1411200080598672</span>
+ <span class="p">,</span> <span class="o">-</span><span class="mf">0.7568024953079282</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9589242746631385</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.27941549819892586</span><span class="p">,</span>  <span class="mf">0.6569865987187891</span>
+ <span class="p">,</span>  <span class="mf">0.9893582466233818</span><span class="p">,</span>  <span class="mf">0.4121184852417566</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.5440211108893698</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9999902065507035</span>
+ <span class="p">,</span> <span class="o">-</span><span class="mf">0.5365729180004349</span><span class="p">,</span>  <span class="mf">0.4201670368266409</span><span class="p">,</span>   <span class="mf">0.9906073556948704</span><span class="p">,</span>  <span class="mf">0.6502878401571168</span>
+ <span class="p">,</span> <span class="o">-</span><span class="mf">0.2879033166650653</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9613974918795568</span><span class="p">,</span>   <span class="o">-</span><span class="mf">0.750987246771676</span><span class="p">,</span> <span class="mf">0.14987720966295234</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">ind</span> <span class="ow">=</span> <span class="n">fmap</span> <span class="n">maxIndex</span> <span class="p">(</span><span class="n">toColumns</span> <span class="n">ydata</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ind</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">time_max</span> <span class="ow">=</span> <span class="n">flatten</span> <span class="p">((</span><span class="n">asRow</span> <span class="n">time</span><span class="p">)</span> <span class="o">??</span> <span class="p">(</span><span class="kt">All</span><span class="p">,</span> <span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">ind</span><span class="p">)))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">ydata_max</span> <span class="ow">=</span> <span class="n">takeDiag</span> <span class="p">(</span><span class="n">ydata</span> <span class="o">??</span> <span class="p">(</span><span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">ind</span><span class="p">),</span> <span class="kt">All</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time_max</span>
+<span class="p">[</span><span class="mf">82.5</span><span class="p">,</span><span class="mf">20.0</span><span class="p">,</span><span class="mf">113.75</span><span class="p">,</span><span class="mf">51.25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ydata_max</span>
+<span class="p">[</span><span class="mf">0.9893582466233818</span><span class="p">,</span><span class="mf">0.8414709848078965</span><span class="p">,</span><span class="mf">0.9906073556948704</span><span class="p">,</span><span class="mf">0.6569865987187891</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">toList</span> <span class="n">ydata_max</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">fmap</span> <span class="n">maxElement</span> <span class="p">(</span><span class="n">toColumns</span> <span class="n">ydata</span><span class="p">))</span>
+<span class="kt">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-8 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-9 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-8 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([0, 1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([0, 0, 2, 0, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([2, 1, 3, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span><span class="o">+=</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([1, 1, 3, 3, 4])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-9 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="mi">5</span> <span class="o">|&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a&#39;</span> <span class="ow">=</span> <span class="n">accum</span> <span class="n">a</span> <span class="n">const</span> <span class="p">(</span><span class="n">zip</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="p">(</span><span class="n">repeat</span> <span class="mi">0</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a&#39;</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a&#39;</span> <span class="ow">=</span> <span class="n">accum</span> <span class="n">a</span> <span class="n">const</span> <span class="p">(</span><span class="n">zip</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a&#39;</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a&#39;</span> <span class="ow">=</span> <span class="n">accum</span> <span class="n">a</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="p">(</span><span class="n">zip</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="p">(</span><span class="n">repeat</span> <span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a&#39;</span> <span class="c1">-- this DOES work, since we hit the 0 index twice mutably</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indexing-with-boolean-arrays">
+<h2>Indexing with Boolean Arrays<a class="headerlink" href="#indexing-with-boolean-arrays" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-10 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-11 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-10 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>                                          <span class="c1"># b is a boolean with a&#39;s shape</span>
+<span class="go">array([[False, False, False, False],</span>
+<span class="go">       [False,  True,  True,  True],</span>
+<span class="go">       [ True,  True,  True,  True]], dtype=bool)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>                                       <span class="c1"># 1d array with the selected elements</span>
+<span class="go">array([ 5,  6,  7,  8,  9, 10, 11])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                                   <span class="c1"># All elements of &#39;a&#39; higher than 4 become 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[0, 1, 2, 3],</span>
+<span class="go">       [4, 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, 0]])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-11 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b</span> <span class="ow">=</span> <span class="p">(</span><span class="n">fmap</span> <span class="p">(</span><span class="n">fmap</span> <span class="p">(</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">)))</span> <span class="p">(</span><span class="n">toLists</span> <span class="n">a</span><span class="p">)</span> <span class="c1">-- gives a [[Bool]], which is not that useful</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b</span> <span class="ow">=</span> <span class="n">find</span> <span class="p">(</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="n">a</span>                    <span class="c1">-- better than just Matrix Bool, which does not work in hmatrix</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>                                      <span class="c1">-- a [IndexOf c] is more idiomatic</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fromList</span> <span class="p">(</span><span class="n">fmap</span> <span class="p">(</span><span class="n">atIndex</span> <span class="n">a</span><span class="p">)</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">accum</span> <span class="n">a</span> <span class="n">const</span> <span class="p">(</span><span class="n">zip</span> <span class="n">b</span> <span class="p">(</span><span class="n">repeat</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">3</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+ <span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+ <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-12 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-13 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-12 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">False</span><span class="p">,</span><span class="bp">True</span><span class="p">,</span><span class="bp">True</span><span class="p">])</span>             <span class="c1"># first dim selection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span><span class="bp">False</span><span class="p">,</span><span class="bp">True</span><span class="p">,</span><span class="bp">False</span><span class="p">])</span>       <span class="c1"># second dim selection</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">b1</span><span class="p">,:]</span>                                   <span class="c1"># selecting rows</span>
+<span class="go">array([[ 4,  5,  6,  7],</span>
+<span class="go">       [ 8,  9, 10, 11]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">b1</span><span class="p">]</span>                                     <span class="c1"># same thing</span>
+<span class="go">array([[ 4,  5,  6,  7],</span>
+<span class="go">       [ 8,  9, 10, 11]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[:,</span><span class="n">b2</span><span class="p">]</span>                                   <span class="c1"># selecting columns</span>
+<span class="go">array([[ 0,  2],</span>
+<span class="go">       [ 4,  6],</span>
+<span class="go">       [ 8, 10]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">b1</span><span class="p">,</span><span class="n">b2</span><span class="p">]</span>                                  <span class="c1"># a weird thing to do</span>
+<span class="go">array([ 4, 10])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-13 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b1&#39;</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">False</span><span class="p">,</span><span class="kt">True</span><span class="p">,</span><span class="kt">True</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b2&#39;</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">,</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">import</span> <span class="nn">Data.List</span> <span class="p">(</span><span class="nf">elemIndices</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">helper</span> <span class="ow">=</span> <span class="n">elemIndices</span> <span class="kt">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b1</span> <span class="ow">=</span> <span class="n">helper</span> <span class="n">b1&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">b2</span> <span class="ow">=</span> <span class="n">helper</span> <span class="n">b2&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">??</span> <span class="p">(</span><span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">b1</span><span class="p">),</span> <span class="kt">All</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span>
+ <span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">?</span> <span class="n">b1</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">4</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span>
+ <span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">??</span> <span class="p">(</span><span class="kt">All</span><span class="p">,</span> <span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">b2</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">3</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">2</span>
+ <span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">6</span>
+ <span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">??</span> <span class="p">(</span><span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">b1</span><span class="p">),</span> <span class="kt">Pos</span> <span class="p">(</span><span class="n">idxs</span> <span class="n">b2</span><span class="p">))</span>       <span class="c1">-- unlike numpy, will return matrix that matches any combination from selections</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">6</span>
+ <span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">fromList</span> <span class="o">.</span> <span class="n">fmap</span> <span class="p">(</span><span class="n">atIndex</span> <span class="n">a</span><span class="p">))</span> <span class="p">(</span><span class="n">zip</span> <span class="n">b1</span> <span class="n">b2</span><span class="p">)</span> <span class="c1">-- this will give you the numpy result, the zipped indexing of a matrix to give a vector</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Yakov Pechersky.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/quickstart.fancy-indexing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

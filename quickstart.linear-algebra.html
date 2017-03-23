@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Linear Algebra &#8212; haskell-numpy-docs  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/segment.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/menu.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/tabs.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tricks and Tips" href="quickstart.tricks.html" />
+    <link rel="prev" title="Fancy indexing and index tricks" href="quickstart.fancy-indexing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">haskell-numpy-docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.basics.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.shape-manipulation.html">Shape Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.fancy-indexing.html">Fancy indexing and index tricks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Linear Algebra</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-array-operations">Simple Array Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.tricks.html">Tricks and Tips</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="quickstart.html">Quickstart</a><ul>
+      <li>Previous: <a href="quickstart.fancy-indexing.html" title="previous chapter">Fancy indexing and index tricks</a></li>
+      <li>Next: <a href="quickstart.tricks.html" title="next chapter">Tricks and Tips</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="linear-algebra">
+<span id="quickstart-linear-algebra"></span><h1>Linear Algebra<a class="headerlink" href="#linear-algebra" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="simple-array-operations">
+<h2>Simple Array Operations<a class="headerlink" href="#simple-array-operations" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-0 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-1 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[[ 1.  2.]</span>
+<span class="go"> [ 3.  4.]]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="go">array([[ 1.,  3.],</span>
+<span class="go">       [ 2.,  4.]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">array([[-2. ,  1. ],</span>
+<span class="go">       [ 1.5, -0.5]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># unit 2x2 matrix; &quot;eye&quot; represents &quot;I&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span>
+<span class="go">array([[ 1.,  0.],</span>
+<span class="go">       [ 0.,  1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="c1"># matrix product</span>
+<span class="go">array([[-1.,  0.],</span>
+<span class="go">       [ 0., -1.]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>  <span class="c1"># trace</span>
+<span class="go">2.0</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">5.</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([[-3.],</span>
+<span class="go">       [ 4.]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="go">(array([ 0.+1.j,  0.-1.j]), array([[ 0.70710678+0.j        ,  0.70710678-0.j        ],</span>
+<span class="go">       [ 0.00000000-0.70710678j,  0.00000000+0.70710678j]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-1 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],[</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">R</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">disp</span> <span class="mi">2</span> <span class="n">a</span>
+<span class="mi">2</span><span class="n">x2</span>
+<span class="mi">1</span>  <span class="mi">2</span>
+<span class="mi">3</span>  <span class="mi">4</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tr</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span>
+ <span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span> <span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">disp</span> <span class="mi">2</span> <span class="p">(</span><span class="n">inv</span> <span class="n">a</span><span class="p">)</span>
+<span class="mi">2</span><span class="n">x2</span>
+<span class="o">-</span><span class="mf">2.00</span>   <span class="mf">1.00</span>
+ <span class="mf">1.50</span>  <span class="o">-</span><span class="mf">0.50</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">u</span> <span class="ow">=</span> <span class="n">ident</span> <span class="mi">2</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">R</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">u</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span>
+ <span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">j</span> <span class="ow">=</span> <span class="n">fromLists</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]]</span> <span class="ow">::</span> <span class="kt">Matrix</span> <span class="kt">R</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">j</span> <span class="o">&lt;&gt;</span> <span class="n">j</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span>  <span class="mf">0.0</span>
+ <span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span> <span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sumElements</span> <span class="p">(</span><span class="n">takeDiag</span> <span class="n">u</span><span class="p">)</span>
+<span class="mf">2.0</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">vector</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">disp</span> <span class="mi">2</span> <span class="p">(</span><span class="n">asColumn</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;\&gt;</span> <span class="n">y</span><span class="p">))</span>
+<span class="mi">2</span><span class="n">x1</span>
+<span class="o">-</span><span class="mf">3.00</span>
+ <span class="mf">4.00</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">eig</span> <span class="n">j</span>
+<span class="p">([</span><span class="mf">0.0</span> <span class="kt">:+</span> <span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span> <span class="kt">:+</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)],(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">2</span><span class="p">)</span>
+ <span class="p">[</span>    <span class="mf">0.7071067811865475</span> <span class="kt">:+</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.7071067811865475</span> <span class="kt">:+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0</span><span class="p">)</span>
+ <span class="p">,</span> <span class="mf">0.0</span> <span class="kt">:+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.7071067811865475</span><span class="p">),</span>    <span class="mf">0.0</span> <span class="kt">:+</span> <span class="mf">0.7071067811865475</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Yakov Pechersky.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/quickstart.linear-algebra.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tricks and Tips &#8212; haskell-numpy-docs  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/tabs.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/segment.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/menu.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/tabs.js"></script>
+    <script type="text/javascript" src="_static/sphinx_tabs/semantic-ui-2.2.7/tab.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Linear Algebra" href="quickstart.linear-algebra.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">haskell-numpy-docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quickstart</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.basics.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.shape-manipulation.html">Shape Manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.fancy-indexing.html">Fancy indexing and index tricks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.linear-algebra.html">Linear Algebra</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tricks and Tips</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-reshaping">&#8220;Automatic&#8221; Reshaping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-stacking">Vector Stacking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#histograms">Histograms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="quickstart.html">Quickstart</a><ul>
+      <li>Previous: <a href="quickstart.linear-algebra.html" title="previous chapter">Linear Algebra</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tricks-and-tips">
+<span id="quickstart-tricks"></span><h1>Tricks and Tips<a class="headerlink" href="#tricks-and-tips" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="automatic-reshaping">
+<h2>&#8220;Automatic&#8221; Reshaping<a class="headerlink" href="#automatic-reshaping" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-0 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-1 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-0 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span>  <span class="c1"># -1 means &quot;whatever is needed&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 5, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[[ 0,  1,  2],</span>
+<span class="go">        [ 3,  4,  5],</span>
+<span class="go">        [ 6,  7,  8],</span>
+<span class="go">        [ 9, 10, 11],</span>
+<span class="go">        [12, 13, 14]],</span>
+<span class="go">       [[15, 16, 17],</span>
+<span class="go">        [18, 19, 20],</span>
+<span class="go">        [21, 22, 23],</span>
+<span class="go">        [24, 25, 26],</span>
+<span class="go">        [27, 28, 29]]])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-1 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="mi">30</span> <span class="o">|&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">toBlocksEvery</span> <span class="mi">5</span> <span class="mi">3</span> <span class="p">(</span><span class="n">reshape</span> <span class="mi">3</span> <span class="n">a</span><span class="p">)</span> <span class="c1">-- emulate depth with lists</span>
+<span class="p">[[(</span><span class="mi">5</span><span class="o">&gt;&lt;</span><span class="mi">3</span><span class="p">)</span>
+ <span class="p">[</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span>
+ <span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span>
+ <span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span>
+ <span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span>
+ <span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span> <span class="p">]],[(</span><span class="mi">5</span><span class="o">&gt;&lt;</span><span class="mi">3</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span>
+ <span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span>
+ <span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span>
+ <span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">26</span>
+ <span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">29</span> <span class="p">]]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="vector-stacking">
+<h2>Vector Stacking<a class="headerlink" href="#vector-stacking" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-2 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-3 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-2 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>                     <span class="c1"># x=([0,2,4,6,8])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>                          <span class="c1"># y=([0,1,2,3,4])</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>                      <span class="c1"># m=([[0,2,4,6,8],</span>
+                                          <span class="c1">#     [0,1,2,3,4]])</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>                     <span class="c1"># xy =([0,2,4,6,8,0,1,2,3,4])</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-3 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">fromList</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">..</span><span class="mi">10</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">y</span> <span class="ow">=</span> <span class="mi">5</span> <span class="o">|&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="p">]</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">Z</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">m</span> <span class="ow">=</span> <span class="n">fromRows</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span>
+<span class="p">(</span><span class="mi">2</span><span class="o">&gt;&lt;</span><span class="mi">5</span><span class="p">)</span>
+ <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span>
+ <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">xy</span> <span class="ow">=</span> <span class="n">vjoin</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">xy</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
+<div class="sphinx-tabs docutils container">
+<div class="ui top attached tabular menu sphinx-menu docutils container">
+<div class="active item sphinx-data-tab-4 docutils container">
+numpy</div>
+<div class="item sphinx-data-tab-5 docutils container">
+hmatrix</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-4 active docutils container">
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build a vector of 10000 normal deviates with variance 0.5^2 and mean 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot a normalized histogram with 50 bins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>       <span class="c1"># matplotlib version (plot)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute the histogram with numpy and then plot it</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># NumPy version (no plot)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="ui bottom attached sphinx-tab tab segment sphinx-data-tab-5 docutils container">
+<div class="highlight-haskell"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">import</span> <span class="nn">Numeric.LinearAlgebra.HMatrix</span> <span class="p">(</span><span class="kt">Seed</span><span class="p">,</span> <span class="kt">RandDist</span><span class="p">(</span><span class="o">..</span><span class="p">),</span> <span class="nf">gaussianSample</span><span class="p">,</span> <span class="nf">rand</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">rand&#39;</span> <span class="n">seed</span> <span class="n">mu</span> <span class="n">sigma</span> <span class="n">c</span> <span class="ow">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="p">(</span><span class="n">randomVector</span> <span class="n">seed</span> <span class="kt">Gaussian</span> <span class="n">c</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">v</span> <span class="ow">=</span> <span class="n">rand&#39;</span> <span class="mi">1</span> <span class="n">mu</span> <span class="n">sigma</span> <span class="mi">10000</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kt">:</span><span class="p">{</span>
+<span class="nf">normedhist</span> <span class="ow">::</span> <span class="kt">Vector</span> <span class="kt">R</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Vector</span> <span class="kt">R</span>
+<span class="nf">normedhist</span> <span class="n">vec</span> <span class="n">numbins</span> <span class="ow">=</span> <span class="n">accum</span> <span class="n">bins</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="p">(</span><span class="n">fmap</span> <span class="n">go</span> <span class="p">(</span><span class="n">toList</span> <span class="n">vec</span><span class="p">))</span>
+                         <span class="kr">where</span>
+                           <span class="n">bins</span> <span class="ow">=</span> <span class="n">konst</span> <span class="mi">0</span> <span class="n">numbins</span>
+                           <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="n">minElement</span> <span class="n">vec</span><span class="p">,</span> <span class="n">maxElement</span> <span class="n">vec</span><span class="p">)</span>
+                           <span class="n">delt</span> <span class="ow">=</span> <span class="p">(</span><span class="n">hi</span><span class="o">-</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">fromIntegral</span> <span class="n">numbins</span>
+                           <span class="n">valscale</span> <span class="n">val</span> <span class="ow">=</span> <span class="n">min</span> <span class="p">(</span><span class="n">numbins</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">floor</span> <span class="p">((</span><span class="n">val</span><span class="o">-</span><span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="n">delt</span><span class="p">))</span>
+                           <span class="n">go</span> <span class="n">val</span> <span class="ow">=</span> <span class="p">(</span><span class="n">valscale</span> <span class="n">val</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">fromIntegral</span> <span class="p">(</span><span class="n">size</span> <span class="n">vec</span><span class="p">))</span>
+<span class="kt">:</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">hist</span> <span class="ow">=</span> <span class="n">normedhist</span> <span class="n">v</span> <span class="mi">50</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">disp</span> <span class="mi">2</span> <span class="p">(</span><span class="n">scalar</span> <span class="p">(</span><span class="n">sumElements</span> <span class="n">hist</span><span class="p">))</span>
+<span class="mi">1</span><span class="n">x1</span>
+<span class="mf">1.00</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kr">let</span> <span class="n">bins</span> <span class="ow">=</span> <span class="n">linspace</span> <span class="mi">50</span> <span class="p">(</span><span class="n">minElement</span> <span class="n">v</span><span class="p">,</span> <span class="n">maxElement</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017, Yakov Pechersky.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/quickstart.tricks.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
