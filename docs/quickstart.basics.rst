@@ -1,4 +1,4 @@
-.. _quickstart.quickstart:
+.. _quickstart.basics:
 
 The Basics
 ==========
