@@ -8,8 +8,8 @@ Tricks and Tips
 
 .. compare-tabs::
 
-   python  numpy   ../numpy-docs/source/user/quickstart.rst 1401-1415
-   haskell hmatrix ../src/quickstart/hmatrix.hs             631-643
+   python  numpy   ../numpy/doc/source/user/quickstart.rst 1401-1415
+   haskell hmatrix ../src/quickstart/hmatrix.hs            631-643
 
 
 Vector Stacking
@@ -17,8 +17,8 @@ Vector Stacking
 
 .. compare-tabs::
 
-   python  numpy   ../numpy-docs/source/user/quickstart.rst 1427-1431
-   haskell hmatrix ../src/quickstart/hmatrix.hs             646-659
+   python  numpy   ../numpy/doc/source/user/quickstart.rst 1427-1431
+   haskell hmatrix ../src/quickstart/hmatrix.hs            646-659
 
 
 Histograms
@@ -26,5 +26,5 @@ Histograms
 
 .. compare-tabs::
 
-   python  numpy   ../numpy-docs/source/user/quickstart.rst 1452-1463
-   haskell hmatrix ../src/quickstart/hmatrix.hs             662-683
+   python  numpy   ../numpy/doc/source/user/quickstart.rst 1452-1463
+   haskell hmatrix ../src/quickstart/hmatrix.hs            662-683

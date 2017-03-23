@@ -13,8 +13,7 @@ https://pechersky.github.io/haskell-numpy-docs/
 
 ## Structure
 
-The `numpy` docs are provided as a subtree, pointing to the [numpy repo][numpy git].
-Specifically, we care about the `numpy-docs` there.
+The `numpy` docs are provided as a submodule, pointing to the [numpy repo][numpy git].
 
 The examples are in the `src` directory, grouped by the docs page that they are
 associated with. Each docs page can have a different library provide examples.
@@ -97,32 +96,6 @@ git checkout gh-pages
 ```
 This is because the first part of the gist was already done. Be careful to not
 push the docs to the `master` branch!
-
-### Setting up the numpy subtree
-
-Based on this [git-subdirectory gist][git subtree gist]. The commands to set up
-the subtree were, in the top directory of the repo
-```
-git remote add -f numpy-upstream git@github.com:numpy/numpy
-git remote update
-git checkout -b upstream/numpydocs numpy-upstream/master
-git subtree split -q --squash --prefix=doc --annotate="[numpydocs] " --rejoin -b merging/numpydocs
-git checkout master
-git subtree add --prefix=numpy-docs --squash merging/numpydocs
-```
-
-To update the numpy docs themselves, in the top directory of the repo, run
-```
-git checkout upstream/numpydocs
-git pull numpy-upstream/master
-git subtree split -q --prefix=doc --annotate="[numpydocs] " --rejoin -b merging/numpydocs
-git checkout master
-git subtree merge -q --prefix=numpy-docs --squash merging/numpydocs
-```
-
-The `git subtree split` commands take a long time.
-
-[git subtree gist]: https://gist.github.com/tswaters/542ba147a07904b1f3f5
 
 ---
 

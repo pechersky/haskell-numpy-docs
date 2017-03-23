@@ -8,7 +8,7 @@ Simple Array Operations
 
 .. compare-tabs::
 
-   python  numpy   ../numpy-docs/source/user/quickstart.rst 1344-1378
-   haskell hmatrix ../src/quickstart/hmatrix.hs             588-628
+   python  numpy   ../numpy/doc/source/user/quickstart.rst 1344-1378
+   haskell hmatrix ../src/quickstart/hmatrix.hs            588-628
 
 
